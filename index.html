@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Voxelstad: Mayor of a Paper Town</title>
+<meta name="description" content="A third-person voxel adventure about running a European municipality, one passport, bin and pothole at a time, and rebuilding it on digital and sovereign technology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="scene" aria-label="Voxelstad"></canvas>
+<div id="vignette"></div>
+
+<div id="hud" hidden>
+  <div id="tl" class="panel">
+    <div id="daychip">Day 1</div>
+    <div id="clockwrap"><b id="clock">09:00</b><span id="phase">Service hours</span></div>
+    <div id="daybar"><i></i></div>
+  </div>
+
+  <div id="objective" class="panel" hidden><span class="k">Now</span><span id="obj-text"></span><span id="obj-dist"></span></div>
+
+  <div id="stats" class="panel">
+    <div class="stat"><span class="l">Budget</span><span class="v" id="s-budget">€30k</span></div>
+    <div class="stat"><span class="l">Trust</span><span class="v" id="s-trust">55</span><div class="meter trust"><i id="m-trust"></i></div></div>
+    <div class="stat"><span class="l">Sovereignty</span><span class="v" id="s-sov">0</span><div class="meter sov"><i id="m-sov"></i></div></div>
+    <div class="stat"><span class="l">Score</span><span class="v pts" id="s-score">0</span><span class="d" id="s-streak"></span></div>
+  </div>
+
+  <div id="jobs"></div>
+  <canvas id="minimap" width="360" height="360"></canvas>
+
+  <div id="bottom">
+    <div id="inv"></div>
+    <div id="prompt" hidden><kbd>E</kbd><span id="prompt-text"></span><div class="hold"><i id="prompt-bar"></i></div></div>
+    <div id="stamina"><i></i></div>
+  </div>
+  <div id="toasts"></div>
+  <div id="pops"></div>
+  <div id="help">WASD move · Shift sprint · Space jump · E interact · V first/third person · M sound · Esc pause</div>
+</div>
+
+<div id="dialogue" hidden>
+  <div id="portrait"></div>
+  <div id="dlg-body">
+    <div id="dlg-who"></div>
+    <div id="dlg-text"></div>
+    <div id="dlg-choices"></div>
+    <div id="dlg-next">Space ▸</div>
+  </div>
+</div>
+
+<div id="title" class="screen">
+  <div class="title-card">
+    <div class="eyebrow">A civic adventure in five days</div>
+    <h1>Voxelstad</h1>
+    <p class="tag">Mayor of a paper town</p>
+    <p class="lede">The servers are dark, the queue is out the door, and the council just elected you. Walk the town, do the work by hand, then rebuild it on technology the town actually owns.</p>
+    <div class="row">
+      <button class="btn primary" id="btn-new">New term</button>
+      <button class="btn" id="btn-continue" hidden>Continue</button>
+    </div>
+    <p class="keys">WASD move · mouse look · E interact · Shift sprint · V first person</p>
+    <p class="fine"><a href="classic/">Play the original management sim</a> · <a href="https://github.com/TjebbeHB/Eu-municipality-sim/blob/main/docs/research.md">Research notes</a></p>
+  </div>
+</div>
+
+<div id="card" class="screen" hidden><div class="card-inner"><div class="eyebrow" id="card-eyebrow"></div><h2 id="card-title"></h2><p id="card-text"></p><button class="btn primary" id="card-btn">Continue</button></div></div>
+<div id="lab" class="screen" hidden></div>
+<div id="summary" class="screen" hidden></div>
+<div id="pause" class="screen" hidden>
+  <div class="sheet narrow">
+    <div class="eyebrow">Paused</div>
+    <h2>Town hall is on hold</h2>
+    <dl class="keys-list">
+      <dt>W A S D / arrows</dt><dd>Walk, or steer the truck</dd>
+      <dt>Mouse</dt><dd>Look around (click the town to capture the mouse)</dd>
+      <dt>E (hold)</dt><dd>Interact, pick up, hand over</dd>
+      <dt>Shift</dt><dd>Sprint</dd>
+      <dt>Space</dt><dd>Jump</dd>
+      <dt>V / scroll</dt><dd>First or third person, zoom</dd>
+      <dt>M</dt><dd>Sound on or off</dd>
+    </dl>
+    <div class="row"><button class="btn primary" id="btn-resume">Resume</button><button class="btn" id="btn-restart">Restart from day 1</button></div>
+  </div>
+</div>
+<div id="ending" class="screen" hidden></div>
+
+<div id="touch" hidden>
+  <div id="stick"><i></i></div>
+  <button id="t-act">E</button>
+  <button id="t-run">Run</button>
+  <button id="t-jump">Jump</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/core.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/world.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+<script src="js/story.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
